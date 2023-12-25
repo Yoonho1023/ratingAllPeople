@@ -1,4 +1,4 @@
-package com.rap.app.auth.entity;
+package com.rap.app.auth.service;
 
 import com.rap.app.user.domain.model.User;
 import com.rap.app.user.domain.service.UserAuthentication;

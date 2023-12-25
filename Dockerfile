@@ -1,0 +1,5 @@
+FROM mysql:latest
+
+ENV MYSQL_ROOT_PASSWORD=welcome
+
+ENV MYSQL_DATABASE=rap

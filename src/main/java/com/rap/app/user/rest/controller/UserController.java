@@ -1,14 +1,13 @@
 package com.rap.app.user.rest.controller;
 
 import com.rap.app.user.application.UserService;
+import com.rap.app.user.rest.dto.SignInRequest;
+import com.rap.config.exception.ValidIdException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping({"/api/auth/", "v1/api/auth/"})
+@RequestMapping({"/api/user", "v1/api/user"})
 @RequiredArgsConstructor
 public class UserController {
 
@@ -19,10 +18,17 @@ public class UserController {
      * TODO 단계 분리 필요? or 단일 설정 필요
      */
     @PostMapping("signIn")
-    public void signIn(@RequestBody String request) {
+    public void signIn(@RequestBody SignInRequest request) {
         userService.signIn(request);
 
     }
+
+    @GetMapping("id-duplicate/{id}")
+    public void idDuplicate(@PathVariable("id") String id) throws ValidIdException {
+        userService.idDuplicate(id);
+    }
+
+
 
     // TODO 비밀번호 찾기
     // TODO ID 중복 체크

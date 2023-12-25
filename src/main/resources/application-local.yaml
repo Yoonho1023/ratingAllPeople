@@ -1,6 +1,6 @@
 # Profile "LOCAL"
 server:
-  port: 8082
+  port: 8088
 
 spring:
   config:
@@ -12,7 +12,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: validate
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -26,7 +26,7 @@ spring:
           plan_cache_max_size: 2048
           plan_parameter_metadata_max_size: 128
   datasource:
-    url: jdbc:mysql://localhost-need-to-setting
+    url: jdbc:mysql://localhost:3306/rap?createDatabaseIfNotExist=true&autoReconnect=true
     username: root
     password: welcome
     driver-class-name: com.mysql.cj.jdbc.Driver

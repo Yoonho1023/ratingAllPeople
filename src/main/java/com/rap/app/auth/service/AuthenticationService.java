@@ -1,6 +1,5 @@
 package com.rap.app.auth.service;
 
-import com.rap.app.auth.entity.JwtTokenProvider;
 import com.rap.app.auth.entity.Token;
 import com.rap.app.user.domain.model.User;
 import com.rap.app.user.domain.repository.UserRepository;
