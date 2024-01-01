@@ -1,2 +1,2 @@
-# ratingAllPeople
-Rating Service that rate all people
+# ratingAllThings
+Rating Service that rate all things
