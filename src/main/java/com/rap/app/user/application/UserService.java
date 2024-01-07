@@ -14,8 +14,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public void signIn(SignInRequest request) {
-
+    public String signIn(SignInRequest request) {
+        return "success";
     }
 
     public void idDuplicate(String id) throws ValidIdException {

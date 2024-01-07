@@ -18,8 +18,8 @@ public class UserController {
      * TODO 단계 분리 필요? or 단일 설정 필요
      */
     @PostMapping("signIn")
-    public void signIn(@RequestBody SignInRequest request) {
-        userService.signIn(request);
+    public String signIn(@RequestBody SignInRequest request) {
+        return userService.signIn(request);
 
     }
 

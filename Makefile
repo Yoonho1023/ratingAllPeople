@@ -1,10 +1,8 @@
 .PHONY: init
 init:
 	@echo "###### RAP-Application Initialize ######"
-	@echo "mysql docker up"
-	@docker pull mysql
-	@docker build -t db -f Dockerfile .
-	@docker run --name RAP-mysql -e MYSQL_ROOT_PASSWORD=welcome -e MYSQL_DATABASE=rap -d -p 3306:3306 mysql:latest
+	@echo "mysql & redis docker up"
+	@docker-compose -p rateAllThings -f src/main/resources/db/container/database/docker-compose.yaml up -d
 
 .PHONY: gen
 gen:

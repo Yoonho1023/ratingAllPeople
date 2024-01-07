@@ -20,17 +20,21 @@ import lombok.experimental.SuperBuilder;
 public class User extends AuditEntity {
 
 	@Id
-	@Column(name = "user_id")
+	@Column(name = "id")
 	@Schema(description = "사용자 Id")
 	private String userId;
 
-	@Column(name = "user_pwd")
+	@Column(name = "pwd")
 	@Schema(description = "사용자 비밀번호")
 	private String pwd;
 
-	@Column(name = "user_nm")
+	@Column(name = "name")
 	@Schema(description = "성명")
-	private String userNm;
+	private String userName;
+
+	@Column(name = "nickname")
+	@Schema(description = "닉네임")
+	private String nickname;
 
 	@Column(name = "mobile_no")
 	@Schema(description = "휴대폰 번호")

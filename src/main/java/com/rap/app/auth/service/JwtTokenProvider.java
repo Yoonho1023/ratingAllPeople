@@ -1,7 +1,6 @@
 package com.rap.app.auth.service;
 
 import com.rap.app.user.domain.model.User;
-import com.rap.app.user.domain.service.UserAuthentication;
 import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,15 +35,16 @@ public class JwtTokenProvider {
 	// JWT 토큰 생성
 	public String issueAccessToken(UserAuthentication authentication) {
 		return Jwts.builder()
-			.setHeaderParam("typ", "JWT")
-			.setSubject((String) authentication.getPrincipal())
-			.claim("uid", authentication.getUser().getUserId())
-			.claim("unm", authentication.getUser().getUserNm())
-			.setIssuer("SYSTEM")
-			.setIssuedAt(new Date()) // 현재 시간 기반으로 생성
-			.setExpiration(this.getExp()) // 만료 시간 세팅
-			.signWith(SignatureAlgorithm.HS512, JWT_SECRET) // 사용할 암호화 알고리즘, signature에 들어갈 secret 값 세팅
-			.compact();
+				.setHeaderParam("typ", "JWT")
+				.setSubject((String) authentication.getPrincipal())
+				.claim("uid", authentication.getUserJwt().getUserId())
+				.claim("unm", authentication.getUserJwt().getUserNm())
+				.claim("unk", authentication.getUserJwt().getNickname())
+				.setIssuer("SYSTEM")
+				.setIssuedAt(new Date()) // 현재 시간 기반으로 생성
+				.setExpiration(this.getExp()) // 만료 시간 세팅
+				.signWith(SignatureAlgorithm.HS512, JWT_SECRET) // 사용할 암호화 알고리즘, signature에 들어갈 secret 값 세팅
+				.compact();
 	}
 
 	public String issueRefreshToken(UserAuthentication authentication) {
@@ -64,8 +64,8 @@ public class JwtTokenProvider {
 		return Optional.of(token.substring(BEARER_PREFIX.length()));
 	}
 
-	// Jwt 토큰에서 Employee 정보 추출
-	public static User getEmployeeFromJWT(String token) throws MalformedJwtException {
+	// Jwt 토큰에서 UserJwt 정보 추출
+	public static UserAuthentication.UserJwt getUserFromJWT(String token) throws MalformedJwtException {
 		if (token.startsWith("key=")) {
 			token = token.substring(4);
 		}
@@ -74,10 +74,11 @@ public class JwtTokenProvider {
 			.parseClaimsJws(token)
 			.getBody();
 
-		return User.builder()
-			.userId(claims.getSubject())
-			.userNm(claims.get("snm").toString())
-			.build();
+		return UserAuthentication.UserJwt.builder()
+				.userId(claims.get("uid").toString())
+				.userNm(claims.get("unm").toString())
+				.nickname(claims.get("unk").toString())
+				.build();
 	}
 
 	/**

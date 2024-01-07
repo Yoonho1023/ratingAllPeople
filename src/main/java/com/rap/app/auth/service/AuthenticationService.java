@@ -3,7 +3,6 @@ package com.rap.app.auth.service;
 import com.rap.app.auth.entity.Token;
 import com.rap.app.user.domain.model.User;
 import com.rap.app.user.domain.repository.UserRepository;
-import com.rap.app.user.domain.service.UserAuthentication;
 import com.rap.config.exception.InvalidRefreshTokenException;
 import com.rap.support.messages.PreparedMessages;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,7 @@ public class AuthenticationService implements UserDetailsService {
 	@Value("${redis.config.user.prefix:user_refresh}")
 	private String USER_REFRESH_TOKEN_KEY;
 
-	@Value("${redis.config.refresh.ttl:8640000}") // 100 days
+	@Value("${redis.config.refresh.ttl:86400}") // 100 days
 	private long ttl;
 
 	/**
@@ -178,10 +177,12 @@ public class AuthenticationService implements UserDetailsService {
 	 * 인증 토큰을 발급하기 위해 필요한 Authentication 객체를 생성한다
 	 */
 	public UserAuthentication createAuthentication(User user) {
-		User emp = User.builder()
-			.userId(user.getUserId())
-			.userNm(user.getUserNm()).build();
-		return new UserAuthentication(emp, null, null);
+		UserAuthentication.UserJwt userJwt = UserAuthentication.UserJwt.builder()
+				.userId(user.getUserId())
+				.userNm(user.getUserName())
+				.nickname(user.getNickname())
+				.build();
+		return new UserAuthentication(userJwt, null, null);
 	}
 
 	/**
