@@ -13,8 +13,8 @@ public class ExceptionAdvisor {
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({ValidIdException.class})
-    public CommonResponse processValidationError(ValidIdException e) {
+    @ExceptionHandler({DuplicateIdException.class})
+    public CommonResponse processValidationError(DuplicateIdException e) {
         CommonResponse response = new CommonResponse<>();
         PreparedMessages preparedMessages = e.getPreparedMessages();
 

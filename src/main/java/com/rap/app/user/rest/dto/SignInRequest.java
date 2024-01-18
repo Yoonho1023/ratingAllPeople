@@ -8,9 +8,19 @@ import lombok.Getter;
 @Getter
 public class SignInRequest {
 
+    @JsonProperty("userId")
     private String userId;
-    private String pw; // bcrypt 도전 해보기
+
+    @JsonProperty("pwd")
+    private String pwd; // bcrypt 도전 해보기
+
+    @JsonProperty("userNm")
     private String userNm;
+
+    @JsonProperty("nickname")
+    private String nickname;
+
+    @JsonProperty("mobileNo")
     private String mobileNo;
 
 }

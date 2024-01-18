@@ -1,9 +1,11 @@
 package com.rap.app.user.rest.controller;
 
 import com.rap.app.user.application.UserService;
+import com.rap.app.user.rest.dto.IdDuplicateResponse;
 import com.rap.app.user.rest.dto.SignInRequest;
-import com.rap.config.exception.ValidIdException;
+import com.rap.config.exception.DuplicateIdException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,12 +22,12 @@ public class UserController {
     @PostMapping("signIn")
     public String signIn(@RequestBody SignInRequest request) {
         return userService.signIn(request);
-
     }
 
     @GetMapping("id-duplicate/{id}")
-    public void idDuplicate(@PathVariable("id") String id) throws ValidIdException {
-        userService.idDuplicate(id);
+    public ResponseEntity<IdDuplicateResponse> idDuplicate(@PathVariable("id") String id) throws DuplicateIdException {
+        IdDuplicateResponse response = userService.idDuplicate(id);
+        return ResponseEntity.ok(response);
     }
 
 
