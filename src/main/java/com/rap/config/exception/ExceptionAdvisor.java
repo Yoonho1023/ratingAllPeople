@@ -19,5 +19,6 @@ public class ExceptionAdvisor {
         PreparedMessages preparedMessages = e.getPreparedMessages();
 
         return response.setResponse(HttpStatus.BAD_REQUEST, preparedMessages.getMessage());
+        // test
     }
 }
